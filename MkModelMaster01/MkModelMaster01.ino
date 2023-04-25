@@ -19,12 +19,13 @@
 
 // General constants
 #define HIGHLIGHT_TIMEOUT 60000
+#define RETOUCH_DELAY 100
 
 // Constants and Globals for PICO - PICO I2C comms
 const char noPad = '@';
 
 // Definitions and global objects DF12015
-#define VOLUME 15
+#define VOLUME 10
 #define TRACK 4
 SoftwareSerial DF1201SSerial(4, 5);  //RX  TX
 DFRobot_DF1201S DF1201S;
@@ -198,24 +199,43 @@ void initDF1201(){
 }
 
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
   Serial.begin(9600);
   while(!Serial){}
   // Start PICO - PICO comms
-  //initWire();
+  initWire();
   // Start the DF1201 sound player
   initDF1201();
   // Play the sound
   DF1201S.playFileNum(TRACK);
+  digitalWrite(LED_BUILTIN,HIGH);
 }
 
 void loop() {
   uint32_t channelIn = 99;
+
+  // Read from the touch reader PICO
+  Wire.requestFrom(0x30,1);
+  while (Wire.available()) {
+    channelIn = (char) Wire.read() - 'A';
+  }
+  
+  if(channelInRange(channelIn)) {
+    Serial.print("recv: ");
+    Serial.println(channelIn);
+    DF1201S.playFileNum(TRACK);
+    rp2040.fifo.push_nb(channelIn);
+  }
+
+  /* Read from console
   while(Serial.available()) {       
     channelIn = Serial.read() - 'A';
     if(channelInRange(channelIn)) {
+      DF1201S.playFileNum(TRACK);
       rp2040.fifo.push_nb(channelIn);
     } 
   }
+  */
   delay(10);
 }
 

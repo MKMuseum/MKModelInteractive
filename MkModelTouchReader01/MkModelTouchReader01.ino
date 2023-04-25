@@ -35,7 +35,7 @@ void loop() {
 void initTouchPads(){
   // initialise touch pad GPIO pins
   for (int index = 0; index < padCount; index++) {
-    pinMode(pinRef[index], INPUT);
+    pinMode(pinRef[index],  INPUT_PULLDOWN);
     //Serial.println(pinRef[index]);
   }
 }
