@@ -149,6 +149,7 @@ bool channelInRange(int chan) {
 }
 
 // Print current channel states
+/*
 void printChannelStates() {
   for(int channel = 0; channel < numChannels; channel++){
     Serial.print(channel);
@@ -158,6 +159,7 @@ void printChannelStates() {
     Serial.println(channelStates[channel].ramp); 
   }
 }
+*/
 
 
 // Funtions for I2C PICO - PICO comms
@@ -200,8 +202,7 @@ void initDF1201(){
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
-  Serial.begin(9600);
-  while(!Serial){}
+  //Serial.begin(9600);
   // Start PICO - PICO comms
   initWire();
   // Start the DF1201 sound player
@@ -221,8 +222,8 @@ void loop() {
   }
   
   if(channelInRange(channelIn)) {
-    Serial.print("recv: ");
-    Serial.println(channelIn);
+    //Serial.print("recv: ");
+    //Serial.println(channelIn);
     DF1201S.playFileNum(TRACK);
     rp2040.fifo.push_nb(channelIn);
   }
