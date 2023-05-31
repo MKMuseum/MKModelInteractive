@@ -1,0 +1,35 @@
+{
+    "media": [
+        {
+            "title": "Default page",
+            "key": "Z",
+            "file_path": "swing1.png"
+        },
+        {
+            "title": "Swing 1 page",
+            "key": "A",
+            "file_path": "swing1.png"
+        },
+        {
+            "title": "Swing 2 page",
+            "key": "B",
+            "file_path": "swing2.png"
+        },
+        {
+            "title": "Swing 3 page",
+            "key": "C",
+            "file_path": "swing3.png"
+        },
+        {
+            "title": "Swing 4 page",
+            "key": "D",
+            "file_path": "swing4.png"
+        },
+        {
+            "title": "Swing 5 page",
+            "key": "E",
+            "file_path": "swing5.png"
+        }
+        
+    ]
+}
